@@ -1,25 +1,40 @@
-from currensy import Currency
+from currency import Currency
 from data import Data
+
+
 def file_operations() -> list:
     with open("test.txt") as file:
-        CurrencyInformation = list()
+        currency_information = list()
         while True:
-            FirstRate = file.readline()
-            if FirstRate == "":
+            first_rate = file.readline()
+            if first_rate == "":
                 break
             else:
-                FirstRate = FirstRate[:-1]
-            SecondRate = file.readline()[:-1]
+                first_rate = first_rate[:-1]
+            second_rate = file.readline()[:-1]
             rate = file.readline()[:-1]
             data = file.readline()
             if data[-1] == "\n":
                 data = data[:-1]
 
-            datas = Data(data)
-            CurrencyInformation.append(Currency(FirstRate, SecondRate, rate, datas))
-    return CurrencyInformation
-def information(CurrencyInformation: list) -> None:
-    for i in CurrencyInformation:
+            try:
+                datas = Data(data)
+            except ValueError as error:
+                print(error)
+                exit()
+
+            try:
+                currency_information.append(Currency(first_rate, second_rate, rate, datas))
+            except RuntimeError as error:
+                print(error)
+                exit()
+
+    return currency_information
+
+
+def information(currency_information: list) -> None:
+    for i in currency_information:
         print(f"Курс {i.SecondRate} на {i.FirstRate} составляет {i.rate} на {i.data}")
+
 
 information(file_operations())
