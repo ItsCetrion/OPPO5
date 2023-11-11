@@ -41,18 +41,19 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(Data("28.02.2021").is_leap_year(2020), False)
 
     def test_Currency(self):
-        self.assertEqual(Currency("USD", "EUR", "97.5", Data("22.02.2021")).FirstRate, "USD")
-        self.assertEqual(Currency("USD", "EUR", "97.5", Data("22.02.2021")).SecondRate, "EUR")
+
+        self.assertEqual(Currency(["USD", "EUR", "97.5", "22.02.2021"]).FirstRate, "USD")
+        self.assertEqual(Currency(["USD", "EUR", "97.5", "22.02.2021"]).SecondRate, "EUR")
         with self.assertRaises(TypeError):
-            Currency("FDFD", "EUR", "97.5", Data("22.02.2021"))
-            Currency("USD", "FDFD", "97.5", Data("22.02.2021"))
+            Currency(["FDFD", "EUR", "97.5", "22.02.2021"])
+            Currency(["USD", "FDFD", "97.5", "22.02.2021"])
 
     def test_Rate(self):
-        self.assertEqual(Currency("USD", "EUR", "97.5", Data("22.02.2021")).rate, 97.5)
+        self.assertEqual(Currency(["USD", "EUR", "97.5", "22.02.2021"]).rate, 97.5)
         with self.assertRaises(TypeError):
-            Currency("USD", "EUR", ".123", Data("22.02.2021"))
-            Currency("USD", "EUR", "123.", Data("22.02.2021"))
-            Currency("USD", "EUR", "12..3", Data("22.02.2021"))
+            Currency(["USD", "EUR", ".123", "22.02.2021"])
+            Currency(["USD", "EUR", "123.", "22.02.2021"])
+            Currency(["USD", "EUR", "12..3", "22.02.2021"])
 
 
 if __name__ == '__main__':

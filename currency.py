@@ -1,7 +1,8 @@
+from data import Data
 class Currency:
     """Информация о валюте в рублях"""
-    def __init__(self, first_rate: str, second_rate: str, rate: str, data) -> None:
-        self.FirstRate, self.SecondRate, self.rate, self.data = first_rate, second_rate, rate, data
+    def __init__(self, valut) -> None:
+        self.FirstRate, self.SecondRate, self.rate, self.data = valut[0], valut[1], valut[2], Data(valut[3])
         self.check_currency()
         self.check_rate()
 
@@ -36,7 +37,7 @@ class Currency:
             try:
                 int(self.rate[0])
                 int(self.rate[-1])
-            except TypeError:
+            except ValueError:
                 raise TypeError(f"Курс указана не числом!(валюта указана как -> {self.rate})")
 
             if self.rate.count(".") == 1:

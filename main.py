@@ -1,33 +1,27 @@
 from currency import Currency
-from data import Data
 
 
 def file_operations() -> list:
     with open("test.txt") as file:
         currency_information = list()
         while True:
-            first_rate = file.readline()
-            if first_rate == "":
-                break
+            exchange = list()
+            for i in range(4):
+                buffer = file.readline()
+                if buffer == "":
+                    break
+                if buffer[-1] == '\n':
+                    buffer = buffer[:-1]
+                exchange.append(buffer)
+
+            if len(exchange) != 0:
+                try:
+                    currency_information.append(Currency(exchange))
+                except RuntimeError as error:
+                    print(error)
+                    exit()
             else:
-                first_rate = first_rate[:-1]
-            second_rate = file.readline()[:-1]
-            rate = file.readline()[:-1]
-            data = file.readline()
-            if data[-1] == "\n":
-                data = data[:-1]
-
-            try:
-                datas = Data(data)
-            except ValueError as error:
-                print(error)
-                exit()
-
-            try:
-                currency_information.append(Currency(first_rate, second_rate, rate, datas))
-            except RuntimeError as error:
-                print(error)
-                exit()
+                break
 
     return currency_information
 
