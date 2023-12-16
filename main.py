@@ -1,8 +1,6 @@
 """Главный файл проекта"""
 import sys
 import cProfile
-from currency import Currency
-import time
 # from memory_profiler import profile
 
 
